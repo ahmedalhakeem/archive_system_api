@@ -6,7 +6,7 @@ class Department(models.Model):
     department_name = models.CharField(max_length=100)
     
     def __str__(self):
-        return self.department_name
+        return self.id, self.department_name
     
 class Section(models.Model):
     section_name = models.CharField(max_length=100)
