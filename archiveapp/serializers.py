@@ -1,7 +1,27 @@
 from rest_framework import serializers
-from archiveapp.models import User, Department, Section, Documents
+from .models import *
+# from rest_framework.authtoken.models import Token
 
+
+
+class SignUpSerializer(serializers.ModelSerializer):
+    pass
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
-        fields = ['id','department_name']
+        fields = ['id', 'department_name']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'section_id']
+
+class SectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Section
+        fields = '__all__'
+
+class DocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Documents
+        fields = '__all__'

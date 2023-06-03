@@ -1,8 +1,22 @@
 from django.urls import path
-from archiveapp import views
-from rest_framework.urlpatterns import format_suffix_patterns
+from . import views
+
+
 urlpatterns = [
-    path('department_list/', views.department_list),
-    path('department_create/', views.department_create)
+    path('UserAuthentication/', views.UserAuthentication.as_view(), name='UserAuthentication') ,
+    path('department_list/', views.DepartmentList.as_view(), name="department_list"),
+    path('signup/', views.SignUpForm.as_view(), name="signup"),
+    path('userlist/', views.UserList.as_view(), name="userlist"),
+    path('user-detail/<int:pk>/', views.UserDetail.as_view(), name="user-detail"),
+    path('user-update/<int:pk>/', views.UpdateUser.as_view(), name="user-update"),
+    path('create-department/', views.CreateDepartment.as_view(), name="create-department"),
+    path('retrieve-department/<int:pk>/', views.RetrieveDepartment.as_view(), name="retrieve-department"),
+    path('update-department/<int:pk>/', views.UpdateDepartment.as_view(), name="update-department"),
+    path('list-create-sections/', views.ListSections.as_view(), name="list-create-sections"),
+    path('section-details/<int:pk>/', views.DetailsSection.as_view(), name="section-details"),
+    path('section-update/<int:pk>/', views.UpdateSection.as_view(), name="section-update"),
+    path('list-document/', views.ListDocuments.as_view(), name="list-documents"),
+
+
+
 ]
-urlpatterns = format_suffix_patterns(urlpatterns)
