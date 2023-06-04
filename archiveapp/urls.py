@@ -16,6 +16,15 @@ urlpatterns = [
     path('section-details/<int:pk>/', views.DetailsSection.as_view(), name="section-details"),
     path('section-update/<int:pk>/', views.UpdateSection.as_view(), name="section-update"),
     path('list-document/', views.ListDocuments.as_view(), name="list-documents"),
+    path('document-detail/<int:pk>/', views.DocumentDetails.as_view(), name="document-detail"),
+    path('document-update/<int:pk>/', views.DocumentUpdate.as_view(), name="document-update"),
+    path('list-create-documentprocedure/', views.ListAllDocumentProcedure.as_view(), name="list-create-documentprocedure"),
+    path('document-procedure-details/<int:pk>/', views.DocumentProcedureDetails.as_view(), name="document-procedure-details"),
+    path('document-procedure-update/<int:pk>/', views.DocumentProcedureUpdate.as_view(), name="document-procedure-update"),
+
+
+
+
 
 
 

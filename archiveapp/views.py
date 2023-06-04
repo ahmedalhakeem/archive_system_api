@@ -8,8 +8,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import APIView
 from rest_framework.authtoken.models import Token
-from archiveapp.models import User, Department, Section, Documents
-from archiveapp.serializers import UserSerializer, DepartmentSerializer, SectionSerializer, DocumentSerializer
+from archiveapp.models import User, Department, Section, Documents, Document_Procedures
+from archiveapp.serializers import UserSerializer, DepartmentSerializer, SectionSerializer, DocumentSerializer, DocumentProcedureSerializer
 from django.shortcuts import get_object_or_404
 
 # Create a new User
@@ -79,7 +79,33 @@ class UpdateSection(generics.RetrieveUpdateAPIView):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
 
-# /LIST all Documents
+# /LIST/create Documents
 class ListDocuments(generics.ListCreateAPIView):
     queryset = Documents.objects.all()
     serializer_class = DocumentSerializer
+
+# Retrieve a document
+class DocumentDetails(generics.RetrieveAPIView):
+    queryset = Documents.objects.all()
+    serializer_class = DocumentSerializer
+
+# Update a Document
+class DocumentUpdate(generics.RetrieveUpdateAPIView):
+    queryset= Documents.objects.all()
+    serializer_class = DocumentSerializer
+
+# List all Document Procedures
+class ListAllDocumentProcedure(generics.ListCreateAPIView):
+    queryset = Document_Procedures.objects.all()
+    serializer_class = DocumentProcedureSerializer
+
+# Document Procedures details
+class DocumentProcedureDetails(generics.RetrieveAPIView):
+    queryset = Document_Procedures.objects.all()
+    serializer_class = DocumentProcedureSerializer
+
+# Update Document Procedure
+class DocumentProcedureUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Document_Procedures.objects.all()
+    serializer_class = DocumentProcedureSerializer
+

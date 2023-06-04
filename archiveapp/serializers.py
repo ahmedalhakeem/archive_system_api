@@ -25,3 +25,8 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Documents
         fields = '__all__'
+
+class DocumentProcedureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Document_Procedures
+        fields = '__all__'

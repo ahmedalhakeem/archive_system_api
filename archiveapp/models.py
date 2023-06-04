@@ -32,6 +32,11 @@ class Documents(models.Model):
     document_submission_date = models.DateTimeField(auto_now_add=True)
     employee_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     doc_details = models.TextField(max_length=300)
+    attached_file = models.FileField(upload_to=None, max_length=100, null=True)
+
+    def __str__(self): 
+        return self.title + ',' + self.employee_id.username
+    
     
 
     def __str__(self):
