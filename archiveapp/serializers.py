@@ -3,7 +3,11 @@ from .models import *
 # from rest_framework.authtoken.models import Token
 
 
-
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = User
+        fields = '__all__'
+        
 class SignUpSerializer(serializers.ModelSerializer):
     pass
 class DepartmentSerializer(serializers.ModelSerializer):

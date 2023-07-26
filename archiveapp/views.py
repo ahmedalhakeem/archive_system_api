@@ -9,8 +9,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import APIView
 from rest_framework.authtoken.models import Token
 from archiveapp.models import User, Department, Section, Documents, Document_Procedures
-from archiveapp.serializers import UserSerializer, DepartmentSerializer, SectionSerializer, DocumentSerializer, DocumentProcedureSerializer
+from archiveapp.serializers import UserSerializer, DepartmentSerializer, SectionSerializer, DocumentSerializer, DocumentProcedureSerializer, LoginSerializer
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create a new User
 class SignUpForm(generics.CreateAPIView):
@@ -32,15 +34,38 @@ class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
 class UserAuthentication(APIView):
-    authentication_classes = [SessionAuthentication , BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-
+    # authentication_classes = [SessionAuthentication , BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
     def get(self, request, format=None):
-        content = {
-            'user': str(request.user),
-            'auth': str(request.auth)
-        }
-        return Response(content)
+        try:
+            data = request.data
+            serializer = LoginSerializer(data=data)
+            if serializer.is_valid():
+                username = serializer.data['username']
+                password = serializer.data['password']
+                
+                user = authenticate(username=username, password=password)
+                if user is None:
+                    return Response({
+                        'status': 400,
+                        'message': 'Invalid users',
+                        'data': serializer.errors
+                    })
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access' : str(refresh.access_token),
+                })
+        except Exception as e:
+            print(e)
+            # return Response({'message': e})
+            
+        # content = {
+        #     'user': str(request.user),
+        #     'auth': str(request.auth)
+        # }
+        # return Response(content)
 # /list of all Departments
 
 class DepartmentList(generics.ListAPIView):
